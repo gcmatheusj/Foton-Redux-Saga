@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Star from 'react-native-vector-icons/FontAwesome';
 
 import Header from '~/components/Header';
 
@@ -23,11 +24,24 @@ const Detail = ({ navigation }) => {
             <Image style={styles.avatar} source={{ uri: book.volumeInfo.imageLinks.thumbnail }} />
           </View>
           <View style={styles.bookInfo}>
-            <Text style={styles.bookTitle}>{book.volumeInfo.title}</Text>
-            <Text style={styles.bookAuthor}>
-              <Text>by </Text>
-              {book.volumeInfo.authors[0]}
-            </Text>
+            <View>
+              <Text style={styles.bookTitle}>{book.volumeInfo.title}</Text>
+              <Text style={styles.bookAuthor}>
+                <Text>by </Text>
+                {book.volumeInfo.authors[0]}
+              </Text>
+            </View>
+            <View style={styles.price}>
+              <Text style={styles.priceText}>
+                <Text>$</Text>
+                {book.saleInfo.retailPrice.amount}
+              </Text>
+              <View style={styles.rating}>
+                {[1, 2, 3, 4, 5].map(() => (
+                  <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
+                ))}
+              </View>
+            </View>
           </View>
         </View>
         <View style={styles.actions}>

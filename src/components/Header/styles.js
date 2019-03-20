@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFDD0D',
   },
   title: {
-    fontSize: 23,
+    fontSize: 22,
     color: '#2C2605',
     paddingVertical: 18,
     borderColor: '#F0D10F',

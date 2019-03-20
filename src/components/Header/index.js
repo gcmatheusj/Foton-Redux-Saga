@@ -9,14 +9,14 @@ export default class Header extends Component {
     if (this.props.navigation.state.routeName === 'List') {
       return (
         <TouchableOpacity onPress={() => {}}>
-          <Icon name="menu" size={36} color="#2C2605" />
+          <Icon name="menu" size={32} color="#2C2605" />
         </TouchableOpacity>
       );
     }
 
     return (
       <TouchableOpacity onPress={() => {}}>
-        <Icon name="arrow-back" size={36} color="#2C2605" />
+        <Icon name="arrow-back" size={32} color="#2C2605" />
       </TouchableOpacity>
     );
   };
@@ -27,7 +27,7 @@ export default class Header extends Component {
         {this.renderButton()}
         <Text style={styles.title}>Design Books</Text>
         <TouchableOpacity onPress={() => {}}>
-          <Icon name="search" size={36} color="black" />
+          <Icon name="search" size={32} color="black" />
         </TouchableOpacity>
       </View>
     );

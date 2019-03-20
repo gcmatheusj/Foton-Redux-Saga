@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     width: 0,
     flexGrow: 1,
+    justifyContent: 'space-between',
   },
 
   bookTitle: {
@@ -44,6 +45,22 @@ const styles = StyleSheet.create({
 
   bookAuthor: {
     fontSize: 18,
+  },
+
+  price: {
+    flexDirection: 'row',
+  },
+
+  priceText: {
+    color: '#2C2605',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  rating: {
+    marginLeft: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   actions: {
@@ -96,7 +113,8 @@ const styles = StyleSheet.create({
   },
 
   sinopseText: {
-    fontSize: 17,
+    lineHeight: 35,
+    fontSize: 16,
   },
 });
 
