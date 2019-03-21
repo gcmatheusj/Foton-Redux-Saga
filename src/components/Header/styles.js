@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFDD0D',
   },
+
   title: {
     fontSize: 22,
     color: '#2C2605',

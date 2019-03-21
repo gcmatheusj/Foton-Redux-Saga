@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
-import { metrics } from '~/styles';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+const screenWidth = width < height ? width : height;
 
 const styles = StyleSheet.create({
   container: {
@@ -14,8 +17,8 @@ const styles = StyleSheet.create({
 
   detail: {
     flexDirection: 'row',
-    marginTop: metrics.baseMargin * 3,
-    maxWidth: metrics.screenWidth,
+    marginTop: 30,
+    maxWidth: screenWidth,
     marginHorizontal: 18,
   },
 

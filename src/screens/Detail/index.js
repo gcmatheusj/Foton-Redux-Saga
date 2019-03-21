@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  View, Text, Image, TouchableOpacity,
+  View, Text, Image, TouchableOpacity, ScrollView,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -17,7 +17,7 @@ const Detail = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
+      <Header navigation={navigation} handleIsSearching={() => {}} />
       <View style={styles.containerDetail}>
         <View style={styles.detail}>
           <View style={styles.avatarContainer}>
@@ -32,14 +32,20 @@ const Detail = ({ navigation }) => {
               </Text>
             </View>
             <View style={styles.price}>
-              <Text style={styles.priceText}>
-                <Text>$</Text>
-                {book.saleInfo.retailPrice.amount}
-              </Text>
+              {book.saleInfo.retailPrice ? (
+                <Text style={styles.priceText}>
+                  <Text>$</Text>
+                  {book.saleInfo.retailPrice.amount}
+                </Text>
+              ) : (
+                <Text style={styles.priceText}>Not for sale</Text>
+              )}
               <View style={styles.rating}>
-                {[1, 2, 3, 4, 5].map(() => (
-                  <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
-                ))}
+                <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
+                <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
+                <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
+                <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
+                <Star name="star" size={16} color="#2C2605" style={{ marginRight: 3 }} />
               </View>
             </View>
           </View>
@@ -50,9 +56,11 @@ const Detail = ({ navigation }) => {
             <Text> pages</Text>
           </Text>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.buy}>
-              <Text style={styles.buyText}>BUY</Text>
-            </TouchableOpacity>
+            {book.saleInfo.retailPrice ? (
+              <TouchableOpacity style={styles.buy}>
+                <Text style={styles.buyText}>BUY</Text>
+              </TouchableOpacity>
+            ) : null}
             <TouchableOpacity style={styles.like}>
               <Icon name="heart" size={20} color="#FFF" />
             </TouchableOpacity>
@@ -60,7 +68,9 @@ const Detail = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.sinopse}>
-        <Text style={styles.sinopseText}>{book.volumeInfo.description}</Text>
+        <ScrollView>
+          <Text style={styles.sinopseText}>{book.volumeInfo.description}</Text>
+        </ScrollView>
       </View>
     </View>
   );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  ActivityIndicator, FlatList, View, StatusBar,
+  ActivityIndicator, FlatList, View, StatusBar, TextInput,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -22,6 +22,7 @@ class List extends Component {
   static propTypes = {
     loadBooksRequest: PropTypes.func.isRequired,
     paginateBooksRequest: PropTypes.func.isRequired,
+    searchBooksRequest: PropTypes.func.isRequired,
     navigation: PropTypes.shape().isRequired,
     books: PropTypes.shape({
       data: PropTypes.array,
@@ -31,6 +32,8 @@ class List extends Component {
   state = {
     refreshing: false,
     startIndex: 20,
+    search: '',
+    isSearching: false,
   };
 
   componentDidMount() {
@@ -53,7 +56,20 @@ class List extends Component {
 
     paginateBooksRequest(startIndex);
 
-    this.setState({ startIndex: startIndex + 20 });
+    this.setState({ startIndex: startIndex + 21 });
+  }
+
+  handleIsSearching = () => {
+    this.setState({ isSearching: true });
+  }
+
+  handleSearch = () => {
+    const { search } = this.state;
+    const { searchBooksRequest } = this.props;
+
+    searchBooksRequest(search);
+
+    this.setState({ isSearching: false });
   }
 
   renderItem = ({ item }) => <ListItem book={item} />;
@@ -85,11 +101,24 @@ class List extends Component {
   };
 
   render() {
+    const { search, isSearching } = this.state;
     const { books, navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#FFDD0D" barStyle="dark-content" />
-        <Header navigation={navigation} />
+        {isSearching ? (
+          <TextInput
+            style={styles.search}
+            value={search}
+            onChangeText={text => this.setState({ search: text })}
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="Search"
+            returnKeyType="send"
+            onSubmitEditing={this.handleSearch}
+          />
+        ) : <Header navigation={navigation} handleIsSearching={this.handleIsSearching} />}
         {books.loading ? (
           <View style={styles.activity}>
             <ActivityIndicator size="large" color="#2C2605" />

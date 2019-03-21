@@ -8,6 +8,9 @@ export const Types = {
   PAGINATE_REQUEST: 'PAGINATE_BOOKS_REQUEST',
   PAGINATE_SUCCESS: 'PAGINATE_BOOKS_SUCCESS',
   PAGINATE_FAILURE: 'PAGINATE_BOOKS_FAILURE',
+  SEARCH_REQUEST: 'SEARCH_BOOKS_REQUEST',
+  SEARCH_SUCCESS: 'SEARCH_BOOKS_SUCCESS',
+  SEARCH_FAILURE: 'SEARCH_BOOKS_FAILURE',
 };
 
 /**
@@ -44,6 +47,17 @@ export default function books(state = INITIAL_STATE, action) {
       };
     case Types.PAGINATE_FAILURE:
       return { ...state, error: true, loadingPaginate: false };
+    case Types.SEARCH_REQUEST:
+      return { ...state, loading: false };
+    case Types.SEARCH_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data.items,
+        loading: false,
+        error: false,
+      };
+    case Types.SEARCH_FAILURE:
+      return { ...state, error: true, loading: false };
     default:
       return state;
   }
@@ -78,5 +92,19 @@ export const Creators = {
 
   paginateBooksFailure: () => ({
     type: Types.PAGINATE_FAILURE,
+  }),
+
+  searchBooksRequest: search => ({
+    type: Types.SEARCH_REQUEST,
+    payload: { search },
+  }),
+
+  searchBooksSuccess: data => ({
+    type: Types.SEARCH_SUCCESS,
+    payload: { data },
+  }),
+
+  searchBooksFailure: () => ({
+    type: Types.SEARCH_FAILURE,
   }),
 };
